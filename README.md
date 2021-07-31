@@ -173,7 +173,7 @@ the principles of structured programming of E. Dijkstra.
 
 ## List 3.
 
->Possile operations & functions \
+> Possible operations & functions \
 > "+" \
 > "-" \
 > "*" \
