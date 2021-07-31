@@ -4,7 +4,7 @@ struct Node {
 };
 
 typedef struct List_s {
-  Node *item;
+  struct Node *head;
 } List;
 
 extern List *List_new();
@@ -15,7 +15,7 @@ extern void List_delete(List *self, char *elem);
 extern char *List_get(List *self, int *index);
 extern int List_contains(List *self, char *elem);
 typedef struct Stack_s {
-  Node *item;
+  struct Node *top;
 } Stack;
 
 extern Stack *Stack_new();
