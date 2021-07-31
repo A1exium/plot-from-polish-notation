@@ -142,13 +142,13 @@ void *Stack_pop(Stack *self) {
     struct Node *tmp = self->top;
     self->top = tmp->next;
     ret_v = tmp->data;
+    free(tmp);
   }
   return ret_v;
 }
 
 void Stack_free(Stack *self) {
   while (self->top) {
-    struct Node *tmp = Stack_pop(self);
-    free(tmp);
+    Stack_pop(self);
   }
 }
