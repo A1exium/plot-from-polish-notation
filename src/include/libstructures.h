@@ -1,15 +1,24 @@
+struct Node {
+  char *data;
+  Node *next;
+};
+
 typedef struct List_s {
-  char *lexem;
-  List *next;
+  Node *item;
 } List;
 
+extern List *List_new();
+extern void List_add(char *lexem);
+extern void List_free(List *self);
+extern void List_remove(List *self, int index);
+extern void List_delete(List *self, char *elem);
+extern char *List_get(List *self, int *index);
+extern int List_contains(List *self, char *elem);
 typedef struct Stack_s {
-  void *lexem;
-  Stack *prev;
+  Node *item;
 } Stack;
 
-List *InitList();
-
-void ListPush(char *lexem);
-void ListFree(List *head);
-void StackPush(char *lexem);
+extern Stack *Stack_new();
+extern void Stack_push_str(Stack *self, char *lexem);
+extern void *Stack_pop();
+extern void Stack_free(Stack *self);
