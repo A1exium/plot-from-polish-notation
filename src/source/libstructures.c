@@ -30,6 +30,7 @@ void List_add(List *self, char *lexem) {
 
 void List_free(List *self) {
   struct Node *tmp = self->head;
+  int i = 0;
   while (tmp) {
     if (tmp->next) {
       struct Node *next = tmp->next;
@@ -37,7 +38,9 @@ void List_free(List *self) {
       tmp = next;
     } else {
       free(tmp);
+      tmp = 0;
     }
+    i++;
   }
   free(self);
 }

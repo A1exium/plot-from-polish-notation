@@ -47,6 +47,7 @@ void TestContain() {
   printf("Testing containing in list:\n");
   List *tmp = GetList();
   Assert(List_contains(tmp, "two"), 1);
+  Assert(List_contains(tmp, "ten"), 0);
   List_free(tmp);
 }
 
