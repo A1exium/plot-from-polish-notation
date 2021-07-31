@@ -18,7 +18,7 @@ List *GetList() {
 void PrintList(List *l) {
   printf("{");
   for (int i = 0; i < List_len(l); i++) {
-    printf("%s, ", List_get(l, i));
+    printf("%s, ", List_get_str(l, i));
   }
   printf("}\n");
 }
