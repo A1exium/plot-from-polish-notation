@@ -1,0 +1,1 @@
+char* ConvertInfToPost(char* str);
