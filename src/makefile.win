@@ -1,0 +1,28 @@
+CC=clang
+CFLAGS=-Wall -Wextra -Werror
+SOURCES=graph.c infixtopostfix.c parsing.c libstuctures.c
+SDIR=source
+IDIR=include
+_OBJ=$(SOURCES:.c=.o)
+OBJ=$(patsubst %,$(SDIR)/%,$(_OBJ)) main.obj
+EXACUTABLE=main
+TEST_DIR=./tests/
+SRC_DIR=./source/
+ADD_INCLUDE=-I $(IDIR)
+
+all: $(EXACUTABLE)
+
+$(EXACUTABLE):$(OBJ)
+	$(CC) -o $@ $(OBJ) $(CFLAGS)$(IDIR)
+
+%.obj: $(TEST_DIR)%.c
+	$(CC) -c -o $@ $^ $(CFLAGS) $(ADD_INCLUDE)
+
+%.obj: $(SRC_DIR)%.c
+	$(CC) -c -o $@ $^ $(CFLAGS) $(ADD_INCLUDE)
+
+test_stack: test_stack.obj misc.obj libstructures.obj
+	$(CC) -o $@.exe $^
+
+test_list: test_list.obj misc.obj libstructures.obj
+	$(CC) -o $@.exe $^

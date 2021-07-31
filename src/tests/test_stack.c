@@ -1,82 +1,60 @@
+#include <stdio.h>
+
 #include "libstructures.h"
 #include "misc.h"
 
-#include <stdio.h>
-
-List *GetList() {
-  List *tmp = List_new();
-  List_add(tmp, "one");
-  List_add(tmp, "two");
-  List_add(tmp, "three");
-  List_add(tmp, "four");
-  List_add(tmp, "five");
-  List_add(tmp, "six");
-  List_add(tmp, "seven");
+Stack *GetStack() {
+  Stack *tmp = Stack_new();
+  Stack_push_str(tmp, "one");
+  Stack_push_str(tmp, "two");
+  Stack_push_str(tmp, "three");
+  Stack_push_str(tmp, "four");
+  Stack_push_str(tmp, "five");
+  Stack_push_str(tmp, "six");
+  Stack_push_str(tmp, "seven");
   return tmp;
 }
 
-void PrintList(List *l) {
+void PrintStack(Stack *l) {
   printf("{");
-  for (int i = 0; i < List_len(l); i++) {
-    printf("%s, ", List_get(l, i));
+  struct Node *tmp = l->top;
+  while (tmp) {
+    printf("%s, ", (char *)tmp->data);
+    tmp = tmp->next;
   }
   printf("}\n");
 }
 
 void TestInit() {
-  printf("Testing list Initialising:\n");
-  List *tmp = List_new();
-  Assert(List_len(tmp), 0);
-  List_free(tmp);
+  printf("Testing Stack Initialising:\n");
+  Stack *tmp = Stack_new();
+  Stack_free(tmp);
 }
 
 void TestAdd() {
-  printf("Testing adding to list:\n");
-  List *tmp = List_new();
-  List_add(tmp, "1");
-  List_add(tmp, "2");
-  List_add(tmp, "3");
-  List_add(tmp, "4");
+  printf("Testing adding to Stack:\n");
+  Stack *tmp = Stack_new();
+  Stack_push_str(tmp, "1");
+  Stack_push_str(tmp, "2");
+  Stack_push_str(tmp, "3");
+  Stack_push_str(tmp, "4");
   printf("out: ");
-  PrintList(tmp);
-  Assert(List_len(tmp), 4);
-  List_free(tmp);
+  PrintStack(tmp);
+  Stack_free(tmp);
 }
 
-void TestContain() {
-  printf("Testing containing in list:\n");
-  List *tmp = GetList();
-  Assert(List_contains(tmp, "two"), 1);
-  Assert(List_contains(tmp, "ten"), 0);
-  List_free(tmp);
-}
-
-void TestRemove() {
+void TestPop() {
   printf("Testing removing from list:\n");
-  List *tmp = GetList();
-  List_remove(tmp, 5);
+  Stack *tmp = GetStack();
+  Stack_pop(tmp);
+  Stack_pop(tmp);
   printf("out: ");
-  PrintList(tmp);
-  Assert(List_contains(tmp, "six"), 0);
-  List_free(tmp);
+  PrintStack(tmp);
+  Stack_free(tmp);
 }
-
-void TestDelete() {
-  printf("Testing removing from list:\n");
-  List *tmp = GetList();
-  List_delete(tmp, "six");
-  printf("out: ");
-  PrintList(tmp);
-  Assert(List_contains(tmp, "six"), 0);
-  List_free(tmp);
-}
-
-
 
 int main(void) {
   TestInit();
   TestAdd();
-  TestContain();
-  TestRemove();
-  TestDelete();
+  TestPop();
 }

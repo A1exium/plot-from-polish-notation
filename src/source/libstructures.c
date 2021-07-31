@@ -1,7 +1,7 @@
 #include "libstructures.h"  // TODO(anyone): Use flag
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 List *List_new() {
   List *tmp = malloc(sizeof(List));
@@ -146,6 +146,8 @@ void *Stack_pop(Stack *self) {
   }
   return ret_v;
 }
+
+void *Stack_pop_str(Stack *self);
 
 void Stack_free(Stack *self) {
   while (self->top) {
