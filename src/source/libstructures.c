@@ -1,6 +1,7 @@
 #include "libstructures.h"  // TODO(anyone): Use flag
 
 #include <stdlib.h>
+#include <stdio.h>
 
 List *List_new() {
   List *tmp = malloc(sizeof(List));
@@ -79,7 +80,7 @@ void List_delete(List *self, char *elem) {
 
 char *List_get(List *self, int index) {
   struct Node *tmp = self->head;
-  void *ret_v = 0;
+  void *ret_v = tmp->data;
   for (int i = 0; i < index; i++) {
     if (!tmp->next) {
       ret_v = 0;
@@ -103,6 +104,16 @@ int List_contains(List *self, char *elem) {
     i++;
   }
   return ret_v;
+}
+
+extern int List_len(List *self) {
+  struct Node *tmp = self->head;
+  int l = 0;
+  while (tmp) {
+    tmp = tmp->next;
+    l++;
+  }
+  return l;
 }
 
 Stack *Stack_new() {

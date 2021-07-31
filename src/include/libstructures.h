@@ -14,6 +14,7 @@ extern void List_remove(List *self, int index);
 extern void List_delete(List *self, char *elem);
 extern char *List_get(List *self, int index);
 extern int List_contains(List *self, char *elem);
+extern int List_len(List *self);
 typedef struct Stack_s {
   struct Node *top;
 } Stack;
