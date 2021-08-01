@@ -1,6 +1,7 @@
 #include "str.h"
 
 #include <stdlib.h>
+#include <stdio.h>
 
 int s21_strlen(char *string) {
   const char *s;
@@ -35,10 +36,12 @@ char *s21_strcpy(char *destptr, char *srcptr) {
 char *s21_strcat(char *destptr, char *srcptr) {
   int l1 = s21_strlen(destptr);
   int l2 = s21_strlen(srcptr);
-  for (int i = 0; i < l2 + 1; i++) {
-    *(destptr + l1 + i) = srcptr[i];
+  char *tmp = calloc(l1 + l2, sizeof(char));
+  s21_strcpy(tmp, destptr);
+  for (int i = l1; i < l2 + l1; i++) {
+    tmp[i] = srcptr[i - l1];
   }
-  return destptr;
+  return tmp;
 }
 
 int s21_strchr(char *string, char symbol) {
@@ -78,7 +81,7 @@ int s21_strtok(char *string, char delim, int start) {
 }
 
 char *s21_strslice(char *string, int start, int end) {
-  char *tmp = calloc(end - start, sizeof(char));
+  char *tmp = malloc((end - start) * sizeof(char));
   for (int i = start; i < end; i++) {
     tmp[i - start] = string[i];
   }

@@ -1,10 +1,12 @@
 #include "functions.h"
+#include "misc.h"
 #include "parsing.h"
 #include "str.h"
 
 double Convert_str_to_double(char *str) {
   int point = 0, sign = 1;
   double ret_v = 0, power = 0;
+  if (str[0] == '-') sign = -1;
   for (int i = 0; i < s21_strlen(str); i++) {
     if (str[i] == '.') {
       point = 1;
@@ -30,7 +32,7 @@ double Eval(char *str, double x) {
     char *slice = s21_strslice(str, start, end);
     if (s21_strcmp(slice, "x")) {
       Stack_push_double(stack, x);
-    } else if (slice[0] >= '0' && slice[0] <= '9') {
+    } else if (IsDigit(slice[0])) {
       Stack_push_double(stack, Convert_str_to_double(slice));
     } else {
       for (int i = 0; i < FUNCS_CNT; i++) {

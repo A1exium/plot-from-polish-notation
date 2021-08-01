@@ -29,5 +29,8 @@ test_list: test_list.o dbg.o libstructures.o
 test_eval: test_eval.o dbg.o functions.o libstructures.o parse.o str.o
 	$(CC) -o $@ $^
 
+test_ITP: libstructures.o str.o dbg.o test_infixtoprefix.o misc.o infixtoprefix.o
+	$(CC) -o $@ $^
+
 clean:
 	rm *.o

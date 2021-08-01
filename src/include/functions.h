@@ -8,7 +8,8 @@
   }
 #define FUNCS_ARG \
   (int[FUNCS_CNT]) { 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2 }
-
+#define FUNCS_STR_PREFIX "sincostgctgsqrtln"
+#define FUNCS_BIN_ORDER "+- */ ^"
 typedef double (*func)(double *);
 
 double u_sum(double *args);
