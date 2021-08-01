@@ -160,7 +160,9 @@ struct Node *Stack_pop_node(Stack *self) {
 }
 
 void Stack_push_double(Stack *self, double value) {
-  Stack_push(self, (void *)&value);
+  double *tmp = (double *)malloc(sizeof(double));
+  *tmp = value;
+  Stack_push(self, (void *)tmp);
 }
 
 void *Stack_pop(Stack *self) {

@@ -1,3 +1,5 @@
+#ifndef LIBSTRUCTURES_H_
+#define LIBSTRUCTURES_H_
 struct Node {
   void *data;
   struct Node *next;
@@ -41,3 +43,5 @@ extern struct Node *Stack_pop_node(Stack *self);
 double Stack_pop_double(Stack *self);
 
 extern void Stack_free(Stack *self);
+
+#endif  // !LIBSTRUCTURES_H_

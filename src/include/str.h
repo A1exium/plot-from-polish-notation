@@ -1,4 +1,5 @@
-
+#ifndef STR_H_
+#define STR_H_
 extern int s21_strlen(char *string);
 extern int s21_strcmp(char *s1, char *s2);
 extern char *s21_strcpy(char *destptr, char *srcptr);
@@ -7,3 +8,4 @@ extern int s21_strchr(char *string, char symbol);
 extern int s21_strstr(char *s1, char *s2);
 extern int s21_strtok(char *string, char delim, int start);
 char *s21_strslice(char *string, int start, int end);
+#endif  // !STR_H_

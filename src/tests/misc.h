@@ -1,1 +1,0 @@
-void Assert(int a, int b);

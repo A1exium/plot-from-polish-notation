@@ -1,6 +1,5 @@
-#include <stdio.h>
+#include "dbg.h"
 #include "parsing.h"
-#include "misc.h"
 #include "str.h"
 
 void TestEval_1() {
@@ -12,6 +11,4 @@ void TestEval_1() {
   Assert(ans, 15);
 }
 
-int main(void) {
-  TestEval_1();
-}
+int main(void) { TestEval_1(); }
