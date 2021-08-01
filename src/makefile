@@ -1,21 +1,16 @@
 CC=gcc
 CFLAGS=-Wall -Wextra -Werror
-SOURCES=graph.c infixtopostfix.c parsing.c libstuctures.c
-SDIR=source
 IDIR=include
-_OBJ=$(SOURCES:.c=.o)
-OBJ=$(patsubst %,$(SDIR)/%,$(_OBJ)) main.o
-_DEPS=graph.h infixtopostfix.h parsing.h libstuctures.h
-DEPS=$(patsubst %,$(IDIR)/%,$(_DEPS))
-EXACUTABLE=main
+EXECUTABLE=main
 TEST_DIR=./tests/
 SRC_DIR=./source/
 ADD_INCLUDE=-I $(IDIR)
+SRC_FILES=$(patsubst $(SRC_DIR)%.c,%.o,$(wildcard $(SRC_DIR)*.c))
 
-all: $(EXACUTABLE)
+all: $(EXECUTABLE)
 
-$(EXACUTABLE):$(OBJ)
-	$(CC) -o $@ $(OBJ) $(CFLAGS)$(IDIR)
+$(EXECUTABLE):$(SRC_FILES) main.o
+	$(CC) -o $@ $^ $(CFLAGS) $(ADD_INCLUDE)
 
 %.o: $(TEST_DIR)%.c
 	$(CC) -c -o $@ $^ $(CFLAGS) $(ADD_INCLUDE)
@@ -23,7 +18,7 @@ $(EXACUTABLE):$(OBJ)
 %.o: $(SRC_DIR)%.c
 	$(CC) -c -o $@ $^ $(CFLAGS) $(ADD_INCLUDE) 
 
-check_all: functions.o libstructures.o parse.o str.o
+check_all: $(SRC_FILES)
 
 test_stack: test_stack.o dbg.o libstructures.o
 	$(CC) -o $@ $^
