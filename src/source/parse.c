@@ -10,11 +10,11 @@ double Convert_str_to_double(char *str) {
       point = 1;
       power = 0;
     } else if (point) {
-      ret_v += (str[0] - '0') * pow(10, power);
+      ret_v += (str[i] - '0') * pow(10, power);
       power--;
     } else {
       ret_v *= pow(10, power);
-      ret_v += str[0] - '0';
+      ret_v += str[i] - '0';
       power++;
     }
   }

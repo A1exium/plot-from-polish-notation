@@ -7,7 +7,7 @@
     "+", "-", "*", "/", "sin", "cos", "tg", "ctg", "sqrt", "ln", "^" \
   }
 #define FUNCS_ARG \
-  (int[FUNCS_CNT]) { 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1 }
+  (int[FUNCS_CNT]) { 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2 }
 
 typedef double (*func)(double *);
 
