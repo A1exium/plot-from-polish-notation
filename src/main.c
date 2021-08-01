@@ -25,14 +25,18 @@ int StrCmp(char* str1, char* str2, int len1, int len2);
 int GetLexemLen(char* str, int start_index);
 int IsValidBracket(char* str, int start_index, int* open_brackets);
 char GetCharAfterSpaces(char* str, int start_index, int* new_char_index);
+char* FormatSring(char* str);
 
 int main() {
-  char* test = Input();
+  char test[] = "";
+  printf("%d\n", IsValidInput(test));
+  char* kek = FormatSring(test);
+  printf("%s", kek);
   // int ncp;
   // char test[] = "cos(";
   // char new_symb = GetCharAfterSpaces(test, 0 + GetLexemLen(test, 0) - 1,
   // &ncp); printf("%c , %d, %d", new_symb, ncp, GetLen(test));
-  printf("%d", IsValidInput(test));
+  // printf("%d", IsValidInput(test));
   // GetLexemLen("cos", 0);
   // int test;
   // scanf("%d", &test);
@@ -49,7 +53,7 @@ char* Input() {
     str[counter] = c;
     if (counter == size - 1) {
       size *= 2;
-      realloc(str, sizeof(char) * size);
+      str = realloc(str, sizeof(char) * size);
     }
   }
   if (scan_val < 0) {
@@ -70,34 +74,27 @@ int IsValidInput(char* str) {
     cur_lexem = DefineLexem(str, cur_pos);
     switch (cur_lexem) {
       case OPERAND_CODE:
-        printf("OPERAND\n");
         valid_input = IsValidOperand(str, cur_pos, prev_lexem);
         prev_lexem = OPERAND_CODE;
         break;
       case OPERATOR_CODE:
-        printf("OPERATOR\n");
         valid_input = IsValidOperator(str, cur_pos, len, prev_lexem);
         prev_lexem = OPERATOR_CODE;
         break;
       case FUNCTION_CODE:
-        printf("FUNC\n");
         valid_input = IsValidFunction(str, cur_pos, prev_lexem);
         prev_lexem = FUNCTION_CODE;
         break;
       case ARG_CODE:
-        printf("ARG\n");
         valid_input = IsFunctionArgument(str, cur_pos, prev_lexem);
         prev_lexem = ARG_CODE;
         break;
       case SPACE_CODE:
-        printf("SPACE\n");
         continue;
       case BRACKET_CODE:
-        printf("BRA\n");
         valid_input = IsValidBracket(str, cur_pos, &open_brackets);
         break;
       default:
-        printf("KEK\n");
         valid_input = 0;
         break;
     }
@@ -169,7 +166,6 @@ int IsValidOperator(char* str, int start_index, int str_len, int prev_lexem) {
 }
 
 int IsValidFunction(char* str, int start_index, int prev_lexem) {
-  int str_len = GetLen(str);
   int is_valid = 0;
   int new_char_pos;
   if (prev_lexem == BRACKET_CODE && prev_lexem == OPERATOR_CODE &&
@@ -182,12 +178,10 @@ int IsValidFunction(char* str, int start_index, int prev_lexem) {
 
   char new_symb = GetCharAfterSpaces(
       str, start_index + GetLexemLen(str, start_index), &new_char_pos);
-  printf("\nNEW SYM1 %c\n", new_symb);
   if (new_symb != '\0') {
     if (new_symb == '(') {
       new_symb = GetCharAfterSpaces(
           str, new_char_pos + GetLexemLen(str, new_char_pos), &new_char_pos);
-      printf("\nNEW SYM2 %c\n", new_symb);
       if (new_symb != '\0' && DefineLexem(&new_symb, 0) != INVALID_SYMBOL &&
           new_symb != ')') {
         is_valid = 1;
@@ -308,7 +302,6 @@ int GetLexemLen(char* str, int start_index) {
     lexem_len = 1;
   }
   if (lexem_type == OPERAND_CODE) {
-    int cur_pos = start_index;
     lexem_len = GetOperandLen(str, start_index);
   }
   if (lexem_type == FUNCTION_CODE) {
@@ -343,4 +336,24 @@ int StrCmp(char* str1, char* str2, int len1, int len2) {
     }
   }
   return is_equal;
+}
+
+char* FormatSring(char* str) {
+  int str_len = GetLen(str);
+  char* new_str = malloc(sizeof(char) * 2 * (str_len + 1));
+  for (int cur_pos = 0, new_str_pos = 0; cur_pos < str_len;) {
+    if (str[cur_pos] == ' ') {
+      cur_pos++;
+      continue;
+    }
+    int lex_len = GetLexemLen(str, cur_pos);
+    for (int i = 0; i < lex_len; i++, new_str_pos++, cur_pos++) {
+      new_str[new_str_pos] = str[cur_pos];
+    }
+    if (cur_pos < str_len - 1) {
+      new_str[new_str_pos] = ' ';
+      new_str_pos++;
+    }
+  }
+  return new_str;
 }
