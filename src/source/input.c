@@ -223,13 +223,9 @@ int DefineLexem(char* str, int index) {
 int IsFunctionArgument(char* str, int index, int prev_lexem) {
   int is_arg = 1;
   if (prev_lexem != OPERATOR_CODE && prev_lexem != BRACKET_CODE &&
-      prev_lexem != START_CODE)
-    if (is_arg) {
-      if (!(str[index - 1] == '(' &&
-            str[index + 1] == ')')) {  // one edge case is missing (with spaces)
-        is_arg = 0;
-      }
-    }
+      prev_lexem != START_CODE) {
+    is_arg = 0;
+  }
   return is_arg;
 }
 

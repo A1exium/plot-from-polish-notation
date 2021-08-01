@@ -1,1 +1,4 @@
+#ifndef SRC_INCLUDE_INFIXTOPREFIX_H_
+#define SRC_INCLUDE_INFIXTOPREFIX_H_
 char* ConvertInfToPost(char* str);
+#endif  //  SRC_INCLUDE_INFIXTOPREFIX_H_

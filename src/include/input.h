@@ -1,5 +1,5 @@
-#ifndef SRC_SOURCE_INPUT_H_
-#define SRC_SOURCE_INPUT_H_
+#ifndef SRC_INCLUDE_INPUT_H_
+#define SRC_INCLUDE_INPUT_H_
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -33,4 +33,4 @@ char* ProcessMinuses(char* str);
 void Red();
 void ResetColor();
 void PrintErrorMessage(char* str);
-#endif  // SRC_SOURCE_INPUT_H_
+#endif  // SRC_INCLUDE_INPUT_H_

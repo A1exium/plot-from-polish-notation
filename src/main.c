@@ -1,7 +1,7 @@
 #include "include/input.h"
 
 int main() {
-  char* input = Input();  // TODO (prozella) FREE IT!
+  char* input = Input();  // TODO(prozella) FREE IT!
   if (IsValidInput(input)) {
     char* test = ProcessMinuses(input);
     printf("%s", test);

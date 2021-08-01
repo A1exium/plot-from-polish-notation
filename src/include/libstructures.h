@@ -1,5 +1,5 @@
-#ifndef LIBSTRUCTURES_H_
-#define LIBSTRUCTURES_H_
+#ifndef SRC_INCLUDE_LIBSTRUCTURES_H_
+#define SRC_INCLUDE_LIBSTRUCTURES_H_
 #include <stdio.h>
 #include <stdlib.h>
 struct Node {
@@ -46,4 +46,4 @@ double Stack_pop_double(Stack *self);
 
 extern void Stack_free(Stack *self);
 
-#endif  // LIBSTRUCTURES_H_
+#endif  // SRC_INCLUDE_LIBSTRUCTURES_H_
