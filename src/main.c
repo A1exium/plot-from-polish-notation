@@ -26,12 +26,18 @@ int GetLexemLen(char* str, int start_index);
 int IsValidBracket(char* str, int start_index, int* open_brackets);
 char GetCharAfterSpaces(char* str, int start_index, int* new_char_index);
 char* FormatSring(char* str);
+void Red();
+void ResetColor();
+void PrintErrorMessage(char* str);
 
 int main() {
-  char test[] = "";
-  printf("%d\n", IsValidInput(test));
-  char* kek = FormatSring(test);
-  printf("%s", kek);
+  char* input = Input();  // TODO (prozella) FREE IT!
+  if (IsValidInput(input)) {
+    char* test = FormatSring(input);
+    printf("%s", test);
+  } else {
+    PrintErrorMessage("Incorrect input!");
+  }
   // int ncp;
   // char test[] = "cos(";
   // char new_symb = GetCharAfterSpaces(test, 0 + GetLexemLen(test, 0) - 1,
@@ -350,10 +356,18 @@ char* FormatSring(char* str) {
     for (int i = 0; i < lex_len; i++, new_str_pos++, cur_pos++) {
       new_str[new_str_pos] = str[cur_pos];
     }
-    if (cur_pos < str_len - 1) {
+    if (cur_pos < str_len) {
       new_str[new_str_pos] = ' ';
       new_str_pos++;
     }
   }
   return new_str;
+}
+
+void Red() { printf("\033[0;31m"); }
+void ResetColor() { printf("\033[0m"); }
+void PrintErrorMessage(char* str) {
+  Red();
+  printf("%s\n", str);
+  ResetColor();
 }
