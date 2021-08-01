@@ -32,7 +32,7 @@ double Eval(char *str, double x) {
     char *slice = s21_strslice(str, start, end);
     if (s21_strcmp(slice, "x")) {
       Stack_push_double(stack, x);
-    } else if (IsDigit(slice[0])) {
+    } else if (IsDigit(slice)) {
       Stack_push_double(stack, Convert_str_to_double(slice));
     } else {
       for (int i = 0; i < FUNCS_CNT; i++) {
