@@ -159,6 +159,10 @@ struct Node *Stack_pop_node(Stack *self) {
   return tmp;
 }
 
+void Stack_push_double(Stack *self, double value) {
+  Stack_push(self, (void *)&value);
+}
+
 void *Stack_pop(Stack *self) {
   void *ret_v = 0;
   struct Node *tmp = Stack_pop_node(self);
@@ -169,9 +173,9 @@ void *Stack_pop(Stack *self) {
   return ret_v;
 }
 
-char *Stack_pop_str(Stack *self) {
-  return (char *)Stack_pop(self);
-}
+char *Stack_pop_str(Stack *self) { return (char *)Stack_pop(self); }
+
+double Stack_pop_double(Stack *self) { return *(double *)Stack_pop(self); }
 
 void Stack_free(Stack *self) {
   while (self->top) {

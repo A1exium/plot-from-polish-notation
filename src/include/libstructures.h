@@ -33,9 +33,11 @@ extern Stack *Stack_new();
 
 extern void Stack_push(Stack *self, void *value);
 extern void Stack_push_str(Stack *self, char *lexem);
+void Stack_push_double(Stack *self, double value);
 
 extern void *Stack_pop(Stack *self);
 extern char *Stack_pop_str(Stack *self);
 extern struct Node *Stack_pop_node(Stack *self);
+double Stack_pop_double(Stack *self);
 
 extern void Stack_free(Stack *self);

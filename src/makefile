@@ -28,3 +28,5 @@ test_stack: test_stack.o misc.o libstructures.o
 
 test_list: test_list.o misc.o libstructures.o
 	$(CC) -o $@ $^
+
+check_all: functions.o libstructures.o parse.o str.o
