@@ -13,26 +13,26 @@
 #define FUNCS_BIN_ORDER "+- */ ^"
 typedef double (*func)(double *);
 
-double u_sum(double *args);
+extern double u_sum(double *args);
 
-double u_diff(double *args);
+extern double u_diff(double *args);
 
-double u_mul(double *args);
+extern double u_mul(double *args);
 
-double u_div(double *args);
+extern double u_div(double *args);
 
-double u_sin(double *args);
+extern double u_sin(double *args);
 
-double u_cos(double *args);
+extern double u_cos(double *args);
 
-double u_tg(double *args);
+extern double u_tg(double *args);
 
-double u_ctg(double *args);
+extern double u_ctg(double *args);
 
-double u_sqrt(double *args);
-double u_ln(double *args);
+extern double u_sqrt(double *args);
+extern double u_ln(double *args);
 
-double u_pow(double *args);
+extern double u_pow(double *args);
 
 #define FUNCS_FUN                                                         \
   (func[FUNCS_CNT]) {                                                     \

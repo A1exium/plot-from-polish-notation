@@ -9,14 +9,16 @@ int main() {
   if (IsValidInput(input)) {
     char* ready_str = ProcessMinuses(
         input);  // эту строку нужно перевести в обратную польскую
-    ready_str = ConvertInfToPost(ready_str);
-    free(input);
-    MakeGraph(ready_str, MAX_ROWS,
+    char *polish = ConvertInfToPost(ready_str);
+    free(ready_str);
+    MakeGraph(polish, MAX_ROWS,
               MAX_COLUMNS);  // затем эту строку в польской сюда кинуть
     // TODO(ANY) ADD FREE FOR STACK STRING
+    free(polish);
   } else {
     PrintErrorMessage("Incorrect input!");
   }
+    free(input);
   // int ncp;
   // char test[] = "cos(";
   // char new_symb = GetCharAfterSpaces(test, 0 + GetLexemLen(test, 0) - 1,

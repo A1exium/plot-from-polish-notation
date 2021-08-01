@@ -9,7 +9,13 @@ char* Input() {
     str[counter] = c;
     if (counter == size - 1) {
       size *= 2;
-      str = realloc(str, sizeof(char) * size);
+      char* tmp = realloc(str, sizeof(char) * size);
+      if (tmp) {
+        str = tmp;
+      } else {
+        free(str);
+        str = 0;
+      }
     }
   }
   if (scan_val < 0) {
@@ -111,11 +117,11 @@ int GetNumberLastCharIndex(char* str, int start_index) {
 
 int IsValidOperator(char* str, int start_index, int str_len, int prev_lexem) {
   int is_valid = 1;
-  int operator= str[start_index];
   if (prev_lexem == OPERATOR_CODE) {
     is_valid = 0;
   }
   if (prev_lexem == START_CODE) {
+    int operator= str[start_index];
     if (operator!= '-') {
       is_valid = 0;
     }
@@ -136,24 +142,20 @@ int IsValidFunction(char* str, int start_index, int prev_lexem) {
   if (is_valid) {
     is_valid = IsKnownFunction(str, start_index);
   }
-
-  char new_symb = GetCharAfterSpaces(
-      str, start_index + GetLexemLen(str, start_index), &new_char_pos);
-  if (new_symb != '\0') {
-    if (new_symb == '(') {
-      new_symb = GetCharAfterSpaces(
-          str, new_char_pos + GetLexemLen(str, new_char_pos), &new_char_pos);
-      if (new_symb != '\0' && DefineLexem(&new_symb, 0) != INVALID_SYMBOL &&
-          new_symb != ')') {
-        is_valid = 1;
-      } else {
-        is_valid = 0;
-      }
-    } else {
-      is_valid = 0;
-    }
-  } else {
+  if (!is_valid) {
     is_valid = 0;
+    char new_symb = GetCharAfterSpaces(
+        str, start_index + GetLexemLen(str, start_index), &new_char_pos);
+    if (new_symb != '\0') {
+      if (new_symb == '(') {
+        new_symb = GetCharAfterSpaces(
+            str, new_char_pos + GetLexemLen(str, new_char_pos), &new_char_pos);
+        if (new_symb != '\0' && DefineLexem(&new_symb, 0) != INVALID_SYMBOL &&
+            new_symb != ')') {
+          is_valid = 1;
+        }
+      }
+    }
   }
   return is_valid;
 }
@@ -315,6 +317,7 @@ char* ProcessMinuses(char* str) {
     if (cur_pos < str_len && !(fst_symb == '-' && (prev_lexem == BRACKET_CODE ||
                                                    prev_lexem == START_CODE))) {
       new_str[new_str_pos] = ' ';
+
       new_str_pos++;
     }
     prev_lexem = cur_lexem;

@@ -14,7 +14,7 @@ char** InitGraph(int max_rows, int max_columns) {
 }
 
 void PrintGraph(char** matrix, int max_rows, int max_columns) {
-  printf("\033[2J\033[1;1H");
+  // printf("\033[2J\033[1;1H");
   for (int i = 0; i < max_rows; i++) {
     for (int j = 0; j < max_columns; j++) {
       printf("%c", matrix[i][j]);
@@ -23,9 +23,8 @@ void PrintGraph(char** matrix, int max_rows, int max_columns) {
   }
 }
 void AddToGraph(char** matrix, int max_rows, int max_columns, int x, double y) {
-  double step = 0.0833;
   if (y <= 1 && y >= -1) {
-    int rws = round((1 - y) / step);
+    int rws = round((1 - y) / 0.0833);
     for (int i = 0; i < max_rows; i++) {
       for (int j = 0; j < max_columns; j++) {
         if (rws == i && x == j) {
