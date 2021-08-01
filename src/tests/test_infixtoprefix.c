@@ -10,4 +10,5 @@ int main(void) {
   printf("%s\n", ConvertInfToPost("5 * sin ( 2 + 3 )"));
   printf("%s\n", ConvertInfToPost("5 * ( 2 + 3 )"));
   printf("%s\n", ConvertInfToPost("5 * ( 2 + -3 )"));
+  printf("%s\n", ConvertInfToPost("ln ( sin ( x ) + 1 )"));
 }

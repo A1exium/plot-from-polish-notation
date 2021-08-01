@@ -81,7 +81,7 @@ int s21_strtok(char *string, char delim, int start) {
 }
 
 char *s21_strslice(char *string, int start, int end) {
-  char *tmp = malloc((end - start) * sizeof(char));
+  char *tmp = calloc(end - start, sizeof(char));
   for (int i = start; i < end; i++) {
     tmp[i - start] = string[i];
   }

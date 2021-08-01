@@ -3,7 +3,11 @@
 #include "functions.h"
 #include "str.h"
 
-int IsDigit(char *c) { return c >= '0' && c <= '9'; }
+int IsDigit(char *c) {
+  return (c[0] >= '0' && c[0] <= '9') ||
+         (s21_strlen(c) > 1 && c[1] >= '0' && c[1] <= '9') ||
+         s21_strcmp(c, "x");
+}
 
 int BinOrder(char *inp, char *cmp) {
   int ret_v = 0;

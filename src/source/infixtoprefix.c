@@ -6,6 +6,7 @@
 #include "libstructures.h"
 #include "misc.h"
 #include "str.h"
+#include "../tests/dbg.h"
 
 char *List_to_string(List *self) {
   char *ret = List_get_str(self, 0);
@@ -23,7 +24,7 @@ char *ConvertInfToPost(char *str) {
   List *ret = List_new();
   while (start != le + 1) {
     char *slice = s21_strslice(str, start, end);
-    if (IsDigit(slice[0])) {
+    if (IsDigit(slice)) {
       List_add_str(ret, slice);
     } else if (IsFunc(slice)) {
       Stack_push_str(stack, slice);
