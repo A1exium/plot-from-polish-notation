@@ -33,3 +33,6 @@ test_list: test_list.o dbg.o libstructures.o
 
 test_eval: test_eval.o dbg.o functions.o libstructures.o parse.o str.o
 	$(CC) -o $@ $^
+
+clean:
+	rm *.o
