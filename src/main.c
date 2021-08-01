@@ -9,7 +9,6 @@ int main() {
   if (IsValidInput(input)) {
     char* ready_str = ProcessMinuses(
         input);  // эту строку нужно перевести в обратную польскую
-    printf("{%s}\n", ready_str);
     ready_str = ConvertInfToPost(ready_str);
     free(input);
     MakeGraph(ready_str, MAX_ROWS,
