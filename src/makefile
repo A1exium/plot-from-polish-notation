@@ -23,10 +23,13 @@ $(EXACUTABLE):$(OBJ)
 %.o: $(SRC_DIR)%.c
 	$(CC) -c -o $@ $^ $(CFLAGS) $(ADD_INCLUDE)
 
+check_all: functions.o libstructures.o parse.o str.o
+
 test_stack: test_stack.o misc.o libstructures.o
 	$(CC) -o $@ $^
 
 test_list: test_list.o misc.o libstructures.o
 	$(CC) -o $@ $^
 
-check_all: functions.o libstructures.o parse.o str.o
+test_eval: test_eval.o misc.o functions.o libstructures.o parse.o str.o
+	$(CC) -o $@ $^

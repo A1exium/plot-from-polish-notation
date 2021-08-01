@@ -66,11 +66,11 @@ int s21_strstr(char *s1, char *s2) {
   return ret;
 }
 
-int s21_strtok(char *string, char *delim, int start) {
+int s21_strtok(char *string, char delim, int start) {
   int flag = s21_strlen(string);
   for (int i = start; i < flag; i++) {
-    if (s21_strchr(delim, string[i]) != -1) {
-      flag = i - 1;
+    if (string[i] == delim) {
+      flag = i;
       break;
     }
   }

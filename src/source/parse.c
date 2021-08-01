@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 #include "functions.h"
 #include "parsing.h"
 #include "str.h"
@@ -22,16 +24,16 @@ double Convert_str_to_double(char *str) {
 }
 
 double Eval(char *str, double x) {
-  int start = 0, end = s21_strtok(str, " ", start);
+  int start = 0, end = s21_strtok(str, ' ', start);
+  printf("%s\n", str);
   // char str_funcs[] = {"+", "-", "*", "/", "sin", "cos", "tg", "ctg", "sqrt",
   // "ln", "^"}; func func_funcs[] = {u_sum, u_diff, u_mul, u_div, u_sin, u_cos,
   // u_tg, u_ctg, u_sqrt, u_ln, u_pow}; int argc_funcs[] = {2, 2, 2, 2, 1, 1, 1,
   // 1, 1, 1, 1};
   Stack *stack = Stack_new();
   double ret = 0;
-  while (end != s21_strlen(str)) {
-    start = end;
-    end = s21_strtok(str, " ", start);
+  int l = s21_strlen(str);
+  while (start != l + 1) {
     char *slice = s21_strslice(str, start, end);
     if (s21_strcmp(slice, "x")) {
       Stack_push_double(stack, x);
@@ -48,6 +50,8 @@ double Eval(char *str, double x) {
         }
       }
     }
+    start = end + 1;
+    end = s21_strtok(str, ' ', start);
   }
   ret = Stack_pop_double(stack);
   Stack_free(stack);
