@@ -1,13 +1,14 @@
-#include "include/graph.h"
-#include "include/input.h"
+#include "graph.h"
+#include "infixtoprefix.h"
+#include "input.h"
 #define MAX_ROWS 25
 #define MAX_COLUMNS 80
 
 int main() {
   char* input = Input();  // TODO(prozella) FREE IT!
   if (IsValidInput(input)) {
-    char* ready_str = ProcessMinuses(
-        input);  // эту строку нужно перевести в обратную польскую
+    char* ready_str = ConvertInfToPost(ProcessMinuses(
+        input));  // эту строку нужно перевести в обратную польскую
     free(input);
     MakeGraph(ready_str, MAX_ROWS,
               MAX_COLUMNS);  // затем эту строку в польской сюда кинуть

@@ -1,4 +1,4 @@
-#include "../include/libstructures.h"  // TODO(anyone): Use flag
+#include "libstructures.h"
 
 List *List_new() {
   List *tmp = malloc(sizeof(List));
@@ -33,9 +33,11 @@ void List_free(List *self) {
   while (tmp) {
     if (tmp->next) {
       struct Node *next = tmp->next;
+      free(tmp->data);
       free(tmp);
       tmp = next;
     } else {
+      free(tmp->data);
       free(tmp);
       tmp = 0;
     }
@@ -57,6 +59,7 @@ void List_remove(List *self, int index) {
     } else {
       prev->next = 0;
     }
+    free(tmp->data);
     free(tmp);
   } else {
     if (self->head->next) {
@@ -174,10 +177,15 @@ void *Stack_pop(Stack *self) {
 
 char *Stack_pop_str(Stack *self) { return (char *)Stack_pop(self); }
 
-double Stack_pop_double(Stack *self) { return *(double *)Stack_pop(self); }
+double Stack_pop_double(Stack *self) {
+  double *tmp = (double *)Stack_pop(self);
+  double ret = *tmp;
+  free(tmp);
+  return ret;
+}
 
 void Stack_free(Stack *self) {
   while (self->top) {
-    Stack_pop(self);
+    free(Stack_pop(self));
   }
 }

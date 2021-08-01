@@ -1,4 +1,4 @@
-#include "../include/input.h"
+#include "input.h"
 
 char* Input() {
   int scan_val = 0, size = 10, counter;

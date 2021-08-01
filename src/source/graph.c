@@ -1,4 +1,4 @@
-#include "../include/graph.h"
+#include "graph.h"
 
 char** InitGraph(int max_rows, int max_columns) {
   char** gr = (char**)calloc(max_rows, sizeof(int*));

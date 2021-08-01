@@ -1,4 +1,4 @@
-#include "../include/functions.h"
+#include "functions.h"
 
 double u_sum(double *args) { return args[0] + args[1]; }
 

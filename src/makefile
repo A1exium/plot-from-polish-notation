@@ -1,27 +1,21 @@
 CC=gcc
 CFLAGS=-Wall -Wextra -Werror
-SOURCES=graph.c parse.c libstructures.c functions.c input.c str.c #infixtoprefix.c
+SOURCES=
 SDIR=source
 IDIR=include
-_OBJ=$(SOURCES:.c=.o)
-OBJ=$(patsubst %,$(SDIR)/%,$(_OBJ)) main.o
-_DEPS=graph.h parse.h libstructures.h functions.h input.h str.h #infixtoprefix.h
-DEPS=$(patsubst %,$(IDIR)/%,$(_DEPS))
 EXACUTABLE=main
 ADD_INCLUDE=-I $(IDIR)
+SRC_FILES=$(patsubst $(SRC_DIR)%.c,%.o,$(wildcard $(SRC_DIR)*.c))
 
-.PHONY: all
+.PHONY: all clean
 
 all:$(EXACUTABLE)
 
-$(EXACUTABLE):$(OBJ) $(DEPS)
-	@$(CC) -o $@ $(OBJ) $(CFLAGS)$(IDIR)
-	@make clean
+$(EXACUTABLE): $(SRC_FILES) main.o
+	$(CC) -o $@ $(CFLAGS) $(ADD_INCLUDE)
 
 %.o: $(SDIR)/%.c
-	@$(CC) -c -o $@ $^ $(CFLAGS) $(ADD_INCLUDE) 
-
-.PHONY: clean
+	$(CC) -c -o $@ $^ $(CFLAGS) $(ADD_INCLUDE)
 
 clean:
-	@rm *.o; cd source; rm *.o
+	rm *.o; cd source; rm *.o
