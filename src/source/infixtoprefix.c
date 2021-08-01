@@ -17,6 +17,24 @@ char *List_to_string(List *self) {
   return ret;
 }
 
+void StackOp(Stack *stack, char *slice, List *ret) {
+  if (stack->top) {
+    char *tmp = Stack_pop_str(stack);
+    while (IsFunc(tmp) || BinOrder(slice, tmp)) {
+      List_add_str(ret, tmp);
+      tmp = 0;
+      if (!stack->top) {
+        break;
+      }
+      tmp = Stack_pop_str(stack);
+    }
+    if (tmp) {
+      Stack_push_str(stack, tmp);
+    }
+  }
+  Stack_push_str(stack, slice);
+}
+
 char *ConvertInfToPost(char *str) {
   int le = s21_strlen(str);
   char *ret_s = 0;
@@ -42,21 +60,7 @@ char *ConvertInfToPost(char *str) {
           slice = Stack_pop_str(stack);
         }
       } else {
-        if (stack->top) {
-          char *tmp = Stack_pop_str(stack);
-          while (IsFunc(tmp) || BinOrder(slice, tmp)) {
-            List_add_str(ret, tmp);
-            tmp = 0;
-            if (!stack->top) {
-              break;
-            }
-            tmp = Stack_pop_str(stack);
-          }
-          if (tmp) {
-            Stack_push_str(stack, tmp);
-          }
-        }
-        Stack_push_str(stack, slice);
+        StackOp(stack, slice, ret);
       }
       start = end + 1;
       end = s21_strtok(str, ' ', start);
