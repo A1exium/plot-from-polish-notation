@@ -1,6 +1,7 @@
+#include "parse.h"
+
 #include "functions.h"
 #include "misc.h"
-#include "parse.h"
 #include "str.h"
 
 double Convert_str_to_double(char *str) {
