@@ -44,7 +44,6 @@ void MakeGraph(char* str, int max_rows, int max_columns) {
   double step = M_PI * 4 / 79;
   double y = 0;
   for (int i = 0; i < max_columns; i++) {
-    printf("%lf\n", y);
     AddToGraph(graph, max_rows, max_columns, i, Eval(str, y));
     y += step;
   }
