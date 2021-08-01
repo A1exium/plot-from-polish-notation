@@ -1,6 +1,4 @@
-#include "str.h"
-
-#include <stdlib.h>
+#include "../include/str.h"
 
 int s21_strlen(char *string) {
   const char *s;

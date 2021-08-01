@@ -25,9 +25,11 @@ int IsFunctionArgument(char* str, int index, int prev_lexem);
 int IsKnownFunction(char* str, int start_index);
 int StrCmp(char* str1, char* str2, int len1, int len2);
 int GetLexemLen(char* str, int start_index);
-int IsValidBracket(char* str, int start_index, int* open_brackets);
+int IsValidBracket(char* str, int start_index, int* open_brackets,
+                   int prev_lexem);
 char GetCharAfterSpaces(char* str, int start_index, int* new_char_index);
 char* FormatSring(char* str);
+char* ProcessMinuses(char* str);
 void Red();
 void ResetColor();
 void PrintErrorMessage(char* str);

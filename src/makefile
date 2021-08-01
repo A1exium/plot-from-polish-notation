@@ -1,38 +1,27 @@
 CC=gcc
 CFLAGS=-Wall -Wextra -Werror
-SOURCES=graph.c infixtopostfix.c parsing.c libstuctures.c
+SOURCES=graph.c parse.c libstructures.c functions.c input.c str.c #infixtoprefix.c
 SDIR=source
 IDIR=include
 _OBJ=$(SOURCES:.c=.o)
 OBJ=$(patsubst %,$(SDIR)/%,$(_OBJ)) main.o
-_DEPS=graph.h infixtopostfix.h parsing.h libstuctures.h
+_DEPS=graph.h parse.h libstructures.h functions.h input.h str.h #infixtoprefix.h
 DEPS=$(patsubst %,$(IDIR)/%,$(_DEPS))
 EXACUTABLE=main
-TEST_DIR=./tests/
-SRC_DIR=./source/
 ADD_INCLUDE=-I $(IDIR)
 
-all: $(EXACUTABLE)
+.PHONY: all
 
-$(EXACUTABLE):$(OBJ)
-	$(CC) -o $@ $(OBJ) $(CFLAGS)$(IDIR)
+all:$(EXACUTABLE)
 
-%.o: $(TEST_DIR)%.c
-	$(CC) -c -o $@ $^ $(CFLAGS) $(ADD_INCLUDE)
+$(EXACUTABLE):$(OBJ) $(DEPS)
+	@$(CC) -o $@ $(OBJ) $(CFLAGS)$(IDIR)
+	@make clean
 
-%.o: $(SRC_DIR)%.c
-	$(CC) -c -o $@ $^ $(CFLAGS) $(ADD_INCLUDE) 
+%.o: $(SDIR)/%.c
+	@$(CC) -c -o $@ $^ $(CFLAGS) $(ADD_INCLUDE) 
 
-check_all: functions.o libstructures.o parse.o str.o
-
-test_stack: test_stack.o dbg.o libstructures.o
-	$(CC) -o $@ $^
-
-test_list: test_list.o dbg.o libstructures.o
-	$(CC) -o $@ $^
-
-test_eval: test_eval.o dbg.o functions.o libstructures.o parse.o str.o
-	$(CC) -o $@ $^
+.PHONY: clean
 
 clean:
-	rm *.o
+	@rm *.o; cd source; rm *.o

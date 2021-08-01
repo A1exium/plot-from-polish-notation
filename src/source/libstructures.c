@@ -1,7 +1,4 @@
-#include "libstructures.h"  // TODO(anyone): Use flag
-
-#include <stdio.h>
-#include <stdlib.h>
+#include "../include/libstructures.h"  // TODO(anyone): Use flag
 
 List *List_new() {
   List *tmp = malloc(sizeof(List));

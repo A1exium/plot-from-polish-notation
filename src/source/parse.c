@@ -1,7 +1,4 @@
-#include "functions.h"
-#include "parsing.h"
-#include "str.h"
-
+#include "../include/parse.h"
 double Convert_str_to_double(char *str) {
   int point = 0, sign = 1;
   double ret_v = 0, power = 0;

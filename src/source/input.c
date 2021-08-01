@@ -30,25 +30,31 @@ int IsValidInput(char* str) {
     cur_lexem = DefineLexem(str, cur_pos);
     switch (cur_lexem) {
       case OPERAND_CODE:
+        printf("OPERAND\n");
         valid_input = IsValidOperand(str, cur_pos, prev_lexem);
         prev_lexem = OPERAND_CODE;
         break;
       case OPERATOR_CODE:
+        printf("OPERATOR\n");
         valid_input = IsValidOperator(str, cur_pos, len, prev_lexem);
         prev_lexem = OPERATOR_CODE;
         break;
       case FUNCTION_CODE:
+        printf("FUNCTION\n");
         valid_input = IsValidFunction(str, cur_pos, prev_lexem);
         prev_lexem = FUNCTION_CODE;
         break;
       case ARG_CODE:
+        printf("ARG\n");
         valid_input = IsFunctionArgument(str, cur_pos, prev_lexem);
         prev_lexem = ARG_CODE;
         break;
       case SPACE_CODE:
         continue;
       case BRACKET_CODE:
-        valid_input = IsValidBracket(str, cur_pos, &open_brackets);
+        printf("BRAC\n");
+        valid_input = IsValidBracket(str, cur_pos, &open_brackets, prev_lexem);
+        prev_lexem = BRACKET_CODE;
         break;
       default:
         valid_input = 0;
@@ -56,6 +62,7 @@ int IsValidInput(char* str) {
     }
   }
   if (open_brackets != 0) {
+    printf("BRERR\n");
     valid_input = 0;
   }
   return valid_input;
@@ -75,7 +82,8 @@ int IsValidOperand(char* str, int start_index, int prev_lexem) {
   return is_valid;
 }
 
-int IsValidBracket(char* str, int start_index, int* open_brackets) {
+int IsValidBracket(char* str, int start_index, int* open_brackets,
+                   int prev_lexem) {
   int is_valid = 1;
   char symb = str[start_index];
   if (*open_brackets <= 0 && symb == ')') {
@@ -84,6 +92,9 @@ int IsValidBracket(char* str, int start_index, int* open_brackets) {
     (*open_brackets)++;
   } else if (symb == ')') {
     (*open_brackets)--;
+  }
+  if ((prev_lexem == OPERAND_CODE || prev_lexem == ARG_CODE) && symb == '(') {
+    is_valid = 0;
   }
   return is_valid;
 }
@@ -294,23 +305,31 @@ int StrCmp(char* str1, char* str2, int len1, int len2) {
   return is_equal;
 }
 
-char* FormatSring(char* str) {
+char* ProcessMinuses(char* str) {
   int str_len = GetLen(str);
-  char* new_str = malloc(sizeof(char) * 2 * (str_len + 1));
-  for (int cur_pos = 0, new_str_pos = 0; cur_pos < str_len;) {
+  int new_str_pos = 0;
+  int prev_lexem = START_CODE, cur_lexem = START_CODE;
+  char* new_str = malloc(sizeof(char) * str_len);
+  char fst_symb;
+  for (int cur_pos = 0; cur_pos < str_len;) {
     if (str[cur_pos] == ' ') {
       cur_pos++;
       continue;
     }
     int lex_len = GetLexemLen(str, cur_pos);
+    cur_lexem = DefineLexem(str, cur_pos);
+    fst_symb = str[cur_pos];
     for (int i = 0; i < lex_len; i++, new_str_pos++, cur_pos++) {
       new_str[new_str_pos] = str[cur_pos];
     }
-    if (cur_pos < str_len) {
+    if (cur_pos < str_len && !(fst_symb == '-' && (prev_lexem == BRACKET_CODE ||
+                                                   prev_lexem == START_CODE))) {
       new_str[new_str_pos] = ' ';
       new_str_pos++;
     }
+    prev_lexem = cur_lexem;
   }
+  new_str[new_str_pos] = '\0';
   return new_str;
 }
 
