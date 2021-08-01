@@ -5,28 +5,16 @@
 #define MAX_COLUMNS 80
 
 int main() {
-  char* input = Input();  // TODO(prozella) FREE IT!
-  if (IsValidInput(input)) {
-    char* ready_str = ProcessMinuses(
-        input);  // эту строку нужно перевести в обратную польскую
-    char *polish = ConvertInfToPost(ready_str);
+  char* input = Input();
+  if (s21_strlen(input) > 0 && IsValidInput(input)) {
+    char* ready_str = ProcessMinuses(input);
+    char* polish = ConvertInfToPost(ready_str);
+    MakeGraph(polish, MAX_ROWS, MAX_COLUMNS);
     free(ready_str);
-    MakeGraph(polish, MAX_ROWS,
-              MAX_COLUMNS);  // затем эту строку в польской сюда кинуть
-    // TODO(ANY) ADD FREE FOR STACK STRING
     free(polish);
   } else {
     PrintErrorMessage("Incorrect input!");
   }
-    free(input);
-  // int ncp;
-  // char test[] = "cos(";
-  // char new_symb = GetCharAfterSpaces(test, 0 + GetLexemLen(test, 0) - 1,
-  // &ncp); printf("%c , %d, %d", new_symb, ncp, GetLen(test));
-  // printf("%d", IsValidInput(test));
-  // GetLexemLen("cos", 0);
-  // int test;
-  // scanf("%d", &test);
-  // printf("\n%d", IsValidFunction("cossinln", test, OPERATOR_CODE));
+  free(input);
   return 0;
 }
