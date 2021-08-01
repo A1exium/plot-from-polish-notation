@@ -28,7 +28,7 @@ void AddToGraph(char** matrix, int max_rows, int max_columns, int x, double y) {
     for (int i = 0; i < max_rows; i++) {
       for (int j = 0; j < max_columns; j++) {
         if (rws == i && x == j) {
-          matrix[i][j] = '*';
+          matrix[max_rows - i - 1][j] = '*';
         }
       }
     }
