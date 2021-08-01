@@ -21,7 +21,7 @@ int GetNumberLastCharIndex(char* str, int start_index);
 int IsValidOperator(char* str, int start_index, int str_len, int prev_lexem);
 int IsValidFunction(char* str, int start_index, int prev_lexem);
 int DefineLexem(char* str, int index);
-int IsFunctionArgument(char* str, int index, int prev_lexem);
+int IsFunctionArgument(int prev_lexem);
 int IsKnownFunction(char* str, int start_index);
 int StrCmp(char* str1, char* str2, int len1, int len2);
 int GetLexemLen(char* str, int start_index);

@@ -30,29 +30,24 @@ int IsValidInput(char* str) {
     cur_lexem = DefineLexem(str, cur_pos);
     switch (cur_lexem) {
       case OPERAND_CODE:
-        printf("OPERAND\n");
         valid_input = IsValidOperand(str, cur_pos, prev_lexem);
         prev_lexem = OPERAND_CODE;
         break;
       case OPERATOR_CODE:
-        printf("OPERATOR\n");
         valid_input = IsValidOperator(str, cur_pos, len, prev_lexem);
         prev_lexem = OPERATOR_CODE;
         break;
       case FUNCTION_CODE:
-        printf("FUNCTION\n");
         valid_input = IsValidFunction(str, cur_pos, prev_lexem);
         prev_lexem = FUNCTION_CODE;
         break;
       case ARG_CODE:
-        printf("ARG\n");
-        valid_input = IsFunctionArgument(str, cur_pos, prev_lexem);
+        valid_input = IsFunctionArgument(prev_lexem);
         prev_lexem = ARG_CODE;
         break;
       case SPACE_CODE:
         continue;
       case BRACKET_CODE:
-        printf("BRAC\n");
         valid_input = IsValidBracket(str, cur_pos, &open_brackets, prev_lexem);
         prev_lexem = BRACKET_CODE;
         break;
@@ -62,7 +57,6 @@ int IsValidInput(char* str) {
     }
   }
   if (open_brackets != 0) {
-    printf("BRERR\n");
     valid_input = 0;
   }
   return valid_input;
@@ -220,7 +214,7 @@ int DefineLexem(char* str, int index) {
   return return_code;
 }
 
-int IsFunctionArgument(char* str, int index, int prev_lexem) {
+int IsFunctionArgument(int prev_lexem) {
   int is_arg = 1;
   if (prev_lexem != OPERATOR_CODE && prev_lexem != BRACKET_CODE &&
       prev_lexem != START_CODE) {
