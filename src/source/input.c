@@ -30,7 +30,6 @@ int IsValidInput(char* str) {
   int valid_input = 1;
   int open_brackets = 0;
   int prev_lexem = START_CODE;
-
   for (int cur_pos = 0, cur_lexem; cur_pos < len && valid_input;
        cur_pos = cur_pos + GetLexemLen(str, cur_pos)) {
     cur_lexem = DefineLexem(str, cur_pos);
