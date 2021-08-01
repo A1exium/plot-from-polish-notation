@@ -21,10 +21,6 @@ void PrintGraph(char** matrix, int max_rows, int max_columns) {
     }
     printf("\n");
   }
-  for (int i = 0; i < max_rows; i++) {
-    free(matrix[i]);
-  }
-  free(matrix);
 }
 void AddToGraph(char** matrix, int max_rows, int max_columns, int x, double y) {
   double step = 0.0833;

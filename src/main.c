@@ -7,8 +7,10 @@
 int main() {
   char* input = Input();  // TODO(prozella) FREE IT!
   if (IsValidInput(input)) {
-    char* ready_str = ConvertInfToPost(ProcessMinuses(
-        input));  // эту строку нужно перевести в обратную польскую
+    char* ready_str = ProcessMinuses(
+        input);  // эту строку нужно перевести в обратную польскую
+    printf("{%s}\n", ready_str);
+    ready_str = ConvertInfToPost(ready_str);
     free(input);
     MakeGraph(ready_str, MAX_ROWS,
               MAX_COLUMNS);  // затем эту строку в польской сюда кинуть

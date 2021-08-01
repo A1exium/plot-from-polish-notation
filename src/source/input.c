@@ -299,7 +299,7 @@ char* ProcessMinuses(char* str) {
   int str_len = GetLen(str);
   int new_str_pos = 0;
   int prev_lexem = START_CODE, cur_lexem = START_CODE;
-  char* new_str = malloc(sizeof(char) * str_len);
+  char* new_str = calloc(str_len, sizeof(char));
   char fst_symb;
   for (int cur_pos = 0; cur_pos < str_len;) {
     if (str[cur_pos] == ' ') {

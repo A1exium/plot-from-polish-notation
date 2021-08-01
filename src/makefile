@@ -13,7 +13,7 @@ SRC_FILES=$(patsubst $(SRC_DIR)%.c,%.o,$(wildcard $(SRC_DIR)*.c))
 all:$(EXACUTABLE)
 
 $(EXACUTABLE): $(SRC_FILES) main.o
-	$(CC) -o $@ $^ $(CFLAGS) $(ADD_INCLUDE)
+	$(CC) -o ../build/graph $^ $(CFLAGS) $(ADD_INCLUDE) -O3
 
 main.o: main.c
 	$(CC) -c -o $@ $^ $(CFLAGS) $(ADD_INCLUDE)
@@ -22,4 +22,5 @@ main.o: main.c
 	$(CC) -c -o $@ $^ $(CFLAGS) $(ADD_INCLUDE)
 
 clean:
-	rm *.o; cd source; rm *.o
+	rm *.o
+	rm ../build/*

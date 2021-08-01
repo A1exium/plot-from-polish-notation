@@ -6,6 +6,7 @@
 #include "libstructures.h"
 #include "misc.h"
 #include "str.h"
+#include "../tests/dbg.h"
 
 char *List_to_string(List *self) {
   char *ret = List_get_str(self, 0);
