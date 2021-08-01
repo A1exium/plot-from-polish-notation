@@ -21,10 +21,18 @@ $(EXACUTABLE):$(OBJ)
 	$(CC) -c -o $@ $^ $(CFLAGS) $(ADD_INCLUDE)
 
 %.o: $(SRC_DIR)%.c
-	$(CC) -c -o $@ $^ $(CFLAGS) $(ADD_INCLUDE)
+	$(CC) -c -o $@ $^ $(CFLAGS) $(ADD_INCLUDE) 
 
-test_stack: test_stack.o misc.o libstructures.o
+check_all: functions.o libstructures.o parse.o str.o
+
+test_stack: test_stack.o dbg.o libstructures.o
 	$(CC) -o $@ $^
 
-test_list: test_list.o misc.o libstructures.o
+test_list: test_list.o dbg.o libstructures.o
 	$(CC) -o $@ $^
+
+test_eval: test_eval.o dbg.o functions.o libstructures.o parse.o str.o
+	$(CC) -o $@ $^
+
+clean:
+	rm *.o

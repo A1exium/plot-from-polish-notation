@@ -1,7 +1,7 @@
 #include "libstructures.h"  // TODO(anyone): Use flag
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 List *List_new() {
   List *tmp = malloc(sizeof(List));
@@ -17,9 +17,9 @@ struct Node *List_get_last(List *self) {
   return tmp;
 }
 
-void List_add(List *self, char *lexem) {
+void List_add(List *self, void *value) {
   struct Node *tmp = malloc(sizeof(struct Node));
-  tmp->data = (void *)lexem;
+  tmp->data = value;
   tmp->next = 0;
   if (self->head) {
     List_get_last(self)->next = tmp;
@@ -27,6 +27,8 @@ void List_add(List *self, char *lexem) {
     self->head = tmp;
   }
 }
+
+void List_add_str(List *self, char *lexem) { List_add(self, (void *)lexem); }
 
 void List_free(List *self) {
   struct Node *tmp = self->head;
@@ -68,7 +70,7 @@ void List_remove(List *self, int index) {
   }
 }
 
-void List_delete(List *self, char *elem) {
+void List_delete(List *self, void *elem) {
   struct Node *tmp = self->head;
   int i = 0;
   while (tmp->next) {
@@ -81,18 +83,27 @@ void List_delete(List *self, char *elem) {
   }
 }
 
-char *List_get(List *self, int index) {
+void List_delete_str(List *self, char *elem) {
+  List_delete(self, (void *)elem);
+}
+
+struct Node *List_get_Node(List *self, int index) {
   struct Node *tmp = self->head;
-  void *ret_v = tmp->data;
   for (int i = 0; i < index; i++) {
     if (!tmp->next) {
-      ret_v = 0;
       break;
     }
     tmp = tmp->next;
-    ret_v = tmp->data;
   }
-  return (char *)ret_v;
+  return tmp;
+}
+
+void *List_get(List *self, int index) {
+  return List_get_Node(self, index)->data;
+}
+
+char *List_get_str(List *self, int index) {
+  return (char *)List_get(self, index);
 }
 
 int List_contains(List *self, char *elem) {
@@ -109,7 +120,7 @@ int List_contains(List *self, char *elem) {
   return ret_v;
 }
 
-extern int List_len(List *self) {
+int List_len(List *self) {
   struct Node *tmp = self->head;
   int l = 0;
   while (tmp) {
@@ -125,9 +136,9 @@ Stack *Stack_new() {
   return tmp;
 }
 
-void Stack_push_str(Stack *self, char *lexem) {
+void Stack_push(Stack *self, void *lexem) {
   struct Node *tmp = malloc(sizeof(struct Node));
-  tmp->data = (void *)lexem;
+  tmp->data = lexem;
   if (self->top) {
     tmp->next = self->top;
   } else {
@@ -136,19 +147,40 @@ void Stack_push_str(Stack *self, char *lexem) {
   self->top = tmp;
 }
 
+void Stack_push_str(Stack *self, char *lexem) {
+  Stack_push(self, (void *)lexem);
+}
+
+struct Node *Stack_pop_node(Stack *self) {
+  struct Node *tmp = self->top;
+  if (tmp) {
+    self->top = tmp->next;
+  }
+  return tmp;
+}
+
+void Stack_push_double(Stack *self, double value) {
+  double *tmp = (double *)malloc(sizeof(double));
+  *tmp = value;
+  Stack_push(self, (void *)tmp);
+}
+
 void *Stack_pop(Stack *self) {
   void *ret_v = 0;
-  if (self->top) {
-    struct Node *tmp = self->top;
-    self->top = tmp->next;
+  struct Node *tmp = Stack_pop_node(self);
+  if (tmp) {
     ret_v = tmp->data;
+    free(tmp);
   }
   return ret_v;
 }
 
+char *Stack_pop_str(Stack *self) { return (char *)Stack_pop(self); }
+
+double Stack_pop_double(Stack *self) { return *(double *)Stack_pop(self); }
+
 void Stack_free(Stack *self) {
   while (self->top) {
-    struct Node *tmp = Stack_pop(self);
-    free(tmp);
+    Stack_pop(self);
   }
 }
