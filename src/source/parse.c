@@ -31,8 +31,8 @@ double Eval(char *str, double x) {
   int l = s21_strlen(str);
   while (start != l + 1) {
     char *slice = s21_strslice(str, start, end);
-    if (s21_strcmp(slice, "x")) {
-      Stack_push_double(stack, x);
+    if (s21_strcmp(slice, "x") || s21_strcmp(slice, "-x")) {
+      Stack_push_double(stack, slice[0] == '-' ? -x : x);
     } else if (IsDigit(slice)) {
       Stack_push_double(stack, Convert_str_to_double(slice));
     } else {

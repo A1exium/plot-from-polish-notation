@@ -37,11 +37,11 @@ void StackOp(Stack *stack, char *slice, List *ret) {
 char *ConvertInfToPost(char *str) {
   int le = s21_strlen(str);
   char *ret_s = 0;
-  if (le == 1) {
-    ret_s = (char *)calloc(1, sizeof(char));
+  int start = 0, end = s21_strtok(str, ' ', start);
+  if (le == end) {
+    ret_s = (char *)calloc(le, sizeof(char));
     s21_strcpy(ret_s, str);
   } else {
-    int start = 0, end = s21_strtok(str, ' ', start);
     Stack *stack = Stack_new();
     List *ret = List_new();
     while (start != le + 1) {
